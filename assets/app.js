@@ -364,9 +364,11 @@ async function renderMap() {
       <span id="routeStatus">Henter kjøreruter fra OSRM …</span>
     </div>`;
   setTimeout(async () => {
-    const map = L.map("map", { scrollWheelZoom: false }).setView([52, 11], 5);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© <a href="https://openstreetmap.org">OSM</a>', maxZoom: 18
+    const map = L.map("map", { scrollWheelZoom: false, zoomControl: true }).setView([52, 11], 5);
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+      subdomains: "abcd",
+      attribution: '© <a href="https://openstreetmap.org">OSM</a> · <a href="https://carto.com/attributions">CARTO</a>',
+      maxZoom: 19
     }).addTo(map);
 
     // Bymarkører
@@ -412,7 +414,7 @@ async function renderMap() {
       const dashArray = leg.ferry ? "8 6" : null;
       if (leg.ferry) {
         // Ferge: trekk rett strek
-        L.polyline([leg.from, leg.to], { color, weight: 3, opacity: 0.7, dashArray }).addTo(map);
+        L.polyline([leg.from, leg.to], { color, weight: 4, opacity: 0.8, dashArray }).addTo(map);
         loaded++;
         statusEl.textContent = `Lastet ${loaded}/${LEGS.length} etapper`;
         continue;
@@ -420,9 +422,11 @@ async function renderMap() {
       osrmRoute(leg.from, leg.to, leg.via).then(coords => {
         loaded++;
         if (coords) {
-          L.polyline(coords, { color, weight: 3, opacity: 0.75 }).addTo(map);
+          // Skygge-linje under for dybde
+          L.polyline(coords, { color: "#000", weight: 7, opacity: 0.15 }).addTo(map);
+          L.polyline(coords, { color, weight: 4, opacity: 0.95 }).addTo(map);
         } else {
-          L.polyline([leg.from, ...(leg.via || []), leg.to], { color, weight: 3, opacity: 0.5, dashArray: "4 4" }).addTo(map);
+          L.polyline([leg.from, ...(leg.via || []), leg.to], { color, weight: 4, opacity: 0.6, dashArray: "6 6" }).addTo(map);
         }
         statusEl.textContent = loaded === LEGS.length ? "Klikk på et stopp for å hoppe til detaljer." : `Lastet ${loaded}/${LEGS.length} etapper`;
       });
@@ -684,8 +688,9 @@ async function renderCityTab(c, slug, tab) {
       const lodgingPoi = pois.find(p => p.type === "lodging");
       const center = lodgingPoi ? [lodgingPoi.lat, lodgingPoi.lng] : [c.lat, c.lng];
       const cm = L.map("cityMap", { scrollWheelZoom: false }).setView(center, 16);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '© OSM', maxZoom: 19
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+        subdomains: "abcd",
+        attribution: '© OSM · CARTO', maxZoom: 19
       }).addTo(cm);
       const colorFor = { lodging: "#c2410c", strand: "#0ea5e9", mat: "#7c3aed", se: "#16a34a", dagstur: "#f59e0b", lade: "#10b981", praktisk: "#64748b" };
       const bounds = [];

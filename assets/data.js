@@ -713,11 +713,8 @@ const CITY_POIS = {
 // Eksport
 // Ting som må bookes — alle på ett sted
 const BOOKINGS = [
-  { id: "color-line-syd", what: "Color Line Oslo → Kiel (utreise)", city: "ferge", deadline: "2026-04-01", url: "https://www.colorline.no/", note: "MS Color Magic, avgang Hjortnes 14:00. Book familielugar tidlig — populært." },
-  { id: "color-line-nord", what: "Color Line Kiel → Oslo (hjemreise)", city: "ferge", deadline: "2026-04-01", url: "https://www.colorline.no/", note: "Avgang Kiel lørdag 11. juli 14:00." },
-  { id: "art-nouveau", what: "Hotel Art Nouveau Berlin", city: "berlin", deadline: "2026-03-01", url: "https://www.hotelartnouveau.de/", note: "Familierom 1 natt 23.–24. juni." },
+  { id: "dresden-adresse", what: "Be familien i Dresden om eksakt adresse", city: "dresden", deadline: "2026-05-01", url: null, note: "Trengs for Tesla-navigasjon og for å vise riktig kart." },
   { id: "reichstag", what: "Reichstag-kuppel Berlin", city: "berlin", deadline: "2026-05-23", url: "https://www.bundestag.de/", note: "Bestilles 4–6 uker før. NB stengt 15.–19. juni 2026 — sjekk 23.06." },
-  { id: "alpenparks", what: "AlpenParks Chalet Alpina Seefeld", city: "seefeld", deadline: "2026-02-01", url: "https://www.alpenparks.at/de/chalet-apartment-alpina-seefeld", note: "2 netter 25.–27. juni." },
   { id: "monte-baldo", what: "Monte Baldo funivia (Malcesine)", city: "bardolino", deadline: "2026-06-15", url: "https://www.funiviedelbaldo.it/en", note: "27 € voksen t/r. Online tidsslot — selges raskt sommer." },
   { id: "veranda-color", what: "La Veranda del Color (fine dining)", city: "bardolino", deadline: "2026-06-08", url: "https://www.laverandadelcolor.it/it", note: "2–4 uker før. Smaksmeny 90–130 €/p." },
   { id: "esperidi", what: "Il Giardino delle Esperidi", city: "bardolino", deadline: "2026-06-15", url: "https://guide.michelin.com/us/en/veneto/bardolino/restaurant/il-giardino-delle-esperidi", note: "Sentrumsrestaurant, må bookes." },
@@ -725,12 +722,9 @@ const BOOKINGS = [
   { id: "pizzeria-bardolino", what: "Pizzeria Bardolino", city: "bardolino", deadline: null, url: null, note: "Møt opp 17:00 eller ring 1–2 dager før — ellers stengt." },
   { id: "al-porto", what: "Al Porto Bardolino (fre/lør)", city: "bardolino", deadline: null, url: null, note: "Book 3–5 dager før hvis fredag/lørdag." },
   { id: "ca-bottona", what: "Trattoria Cà Bottona (helger)", city: "bardolino", deadline: null, url: null, note: "1 uke før i helger." },
-  { id: "bardolino-airbnb", what: "Airbnb Via Montavoletta 14", city: "bardolino", deadline: "2026-02-01", url: "https://www.airbnb.no/rooms/51456317", note: "8 netter." },
-  { id: "grado-airbnb", what: "Airbnb Riva Brioni 27 Grado", city: "grado", deadline: "2026-02-01", url: "https://www.airbnb.no/rooms/847787569977003234", note: "4 netter." },
   { id: "tavernetta-androna", what: "Tavernetta all'Androna (Grado)", city: "grado", deadline: "2026-06-25", url: null, note: "Michelin-anbefalt. Bestill telefonisk +39 0431 80950." },
   { id: "de-toni", what: "Trattoria de Toni (Grado)", city: "grado", deadline: "2026-06-25", url: null, note: "Boreto-stedet. +39 0431 80104." },
   { id: "casoni-grado", what: "Lagune-/casoni-tur Grado", city: "grado", deadline: null, url: null, note: "3–4 t med polenta-måltid. Book via turistkontoret eller direkte med båteier." },
-  { id: "hotel-central-hof", what: "Hotel Central Hof", city: "hof", deadline: "2026-04-01", url: "https://hotel-central-hof.de/", note: "1 natt 9.–10. juli." },
   { id: "hamburg-hotell", what: "Hamburg hotell (PIERDREI, AMERON eller Adina)", city: "hamburg", deadline: "2026-05-01", url: null, note: "Velg ett av tre forslag, eller fritt valg. 1 natt 10.–11. juli." },
   { id: "miniatur", what: "Miniatur Wunderland tidsslot", city: "hamburg", deadline: "2026-07-03", url: "https://www.miniatur-wunderland.com/", note: "Bestill tidsslot — ofte utsolgt i sommer." }
 ];

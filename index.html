@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sommerferie 2026 — Pintzka</title>
+  <meta name="description" content="Carl, Anne, Miriam, Daniel og Elias på bilferie gjennom Europa, sommeren 2026." />
+  <meta name="theme-color" content="#c2410c" />
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☀%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div id="headerCountdown" class="header-countdown"></div>
+
+    <nav class="nav-tabs">
+      <button class="nav-tab" data-view="dashboard">📍 I dag</button>
+      <button class="nav-tab" data-view="map">🗺️ Kart</button>
+      <button class="nav-tab" data-view="calendar">📅 Kalender</button>
+      <button class="nav-tab" data-view="cities">🏛️ Steder</button>
+      <button class="nav-tab" data-view="charging">⚡ Lading</button>
+      <button class="nav-tab" data-view="booking">📋 Booking</button>
+      <button class="nav-tab" data-view="packing">🎒 Pakkeliste</button>
+      <button class="nav-tab" data-view="diary">📓 Dagbok</button>
+      <button class="nav-tab" data-view="print">🖨️ Print</button>
+    </nav>
+
+    <button class="icon-btn" id="themeToggle" title="Bytt tema">🌙</button>
+    <button class="icon-btn" id="userBtn" title="Brukerinnstillinger">👤</button>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="searchInput" class="search-input" placeholder="Søk …" />
+      <div id="searchResults" class="search-results" hidden></div>
+    </div>
+  </div>
+</header>
+
+<main class="container" id="app">
+  <!-- View injected here -->
+</main>
+
+<!-- Mobile bottom nav -->
+<nav class="mobile-nav">
+  <button class="mobile-nav-btn" data-view="dashboard"><span class="icon">📍</span>I dag</button>
+  <button class="mobile-nav-btn" data-view="map"><span class="icon">🗺️</span>Kart</button>
+  <button class="mobile-nav-btn" data-view="calendar"><span class="icon">📅</span>Kalender</button>
+  <button class="mobile-nav-btn" data-view="cities"><span class="icon">🏛️</span>Steder</button>
+  <button class="mobile-nav-btn" data-view="booking"><span class="icon">📋</span>Booking</button>
+</nav>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script src="assets/data.js"></script>
+<script src="assets/storage.js"></script>
+<script src="assets/weather.js"></script>
+<script src="assets/app.js"></script>
+
+</body>
+</html>

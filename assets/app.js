@@ -524,21 +524,10 @@ async function renderCity(slug) {
   const lodgings = [...new Set(days.map(d => d.lodging_id).filter(Boolean))].map(id => LODGINGS[id]).filter(Boolean);
 
   $app.innerHTML = `
-    <div class="city-header">
-      <span class="city-flag-big">${c.flag}</span>
-      <div style="flex:1;min-width:0;">
-        <h2>${c.name}</h2>
-        <div class="country">${c.country} · ${days.length} ${days.length === 1 ? "dag" : "dager"} (${days[0]?.date} – ${days[days.length-1]?.date})</div>
-        ${c.summary ? `<p style="margin:4px 0 0 0;color:var(--text-muted);max-width:680px;">${c.summary}</p>` : ""}
-        ${lodgings.length ? lodgings.map(l => `
-          <div style="margin-top:8px;font-size:14px;background:var(--bg-elevated);padding:8px 12px;border-radius:8px;">
-            🏠 <strong>${l.name}</strong>${l.address ? " · " + l.address : ""}
-            ${l.gmaps ? ` · <a href="${l.gmaps}" target="_blank">Google Maps ↗</a>` : ""}
-            ${l.url ? ` · <a href="${l.url}" target="_blank">Booking ↗</a>` : ""}
-          </div>
-        `).join("") : ""}
-      </div>
-      <div data-img="${slug}" style="width:200px;height:120px;background:var(--bg-elevated) center/cover no-repeat;border-radius:10px;flex-shrink:0;"></div>
+    <div class="city-header-compact">
+      <span style="font-size:28px;">${c.flag}</span>
+      <h2 style="margin:0;font-size:22px;letter-spacing:-0.02em;">${c.name}</h2>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:8px;">${c.country}</span>
     </div>
 
     <div class="city-tabs">
@@ -547,10 +536,6 @@ async function renderCity(slug) {
 
     <div id="tabBody"></div>
   `;
-
-  cityImage(slug).then(url => {
-    if (url) $app.querySelector(`[data-img="${slug}"]`).style.backgroundImage = `url('${url}')`;
-  });
 
   function showTab(key) {
     $app.querySelectorAll(".city-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === key));
@@ -621,20 +606,40 @@ async function renderCityTab(c, slug, tab) {
   }
 
   if (tab === "oversikt") {
+    const ovDays = DAYS.filter(d => d.city === slug);
+    const lodgings = [...new Set(ovDays.map(d => d.lodging_id).filter(Boolean))].map(id => LODGINGS[id]).filter(Boolean);
+    cityImage(slug).then(url => {
+      const el = $body.querySelector(`[data-img="${slug}"]`);
+      if (el && url) el.style.backgroundImage = `url('${url}')`;
+    });
     $body.innerHTML = `
+      <div data-img="${slug}" style="width:100%;height:200px;background:var(--bg-elevated) center/cover no-repeat;border-radius:12px;margin-bottom:12px;"></div>
+      <div style="margin-bottom:12px;color:var(--text-muted);font-size:13px;">${ovDays.length} ${ovDays.length === 1 ? "dag" : "dager"} · ${ovDays[0]?.date} – ${ovDays[ovDays.length-1]?.date}</div>
+      ${c.summary ? `<p style="margin:0 0 12px 0;font-size:14px;line-height:1.6;">${c.summary}</p>` : ""}
+
+      ${lodgings.length ? `<div class="card-grid" style="margin-bottom:12px;">
+        ${lodgings.map(l => `
+          <div class="card" style="border-left:4px solid var(--accent);">
+            <div class="section-h">🏠 Bolig</div>
+            <div style="font-weight:600;">${l.name}</div>
+            ${l.address ? `<div style="font-size:13px;color:var(--text-muted);margin-top:2px;">${l.address}</div>` : ""}
+            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+              ${l.gmaps ? `<a class="btn" href="${l.gmaps}" target="_blank" style="font-size:12px;padding:6px 12px;text-decoration:none;">📍 Google Maps ↗</a>` : ""}
+              ${l.url ? `<a class="btn" href="${l.url}" target="_blank" style="font-size:12px;padding:6px 12px;text-decoration:none;">🛏️ Booking ↗</a>` : ""}
+            </div>
+          </div>
+        `).join("")}
+      </div>` : ""}
+
       <div class="card-grid">
         <div class="card">
           <div class="section-h">Reisedøgn</div>
-          ${DAYS.filter(d => d.city === slug).map(d => {
-            const lodg = lodgingFor(d);
-            return `
+          ${ovDays.map(d => `
               <div style="padding:6px 0;border-bottom:1px dashed var(--border);font-size:13px;">
                 <strong>${fmtDate(d.date)}</strong> — ${d.from === d.to ? "her" : d.from + " → " + d.to}
                 ${d.note ? `<div style="color:var(--text-muted);font-size:12px;">${d.note}</div>` : ""}
-                ${lodg && lodg.address ? `<div style="color:var(--text-muted);font-size:12px;">🏠 ${lodg.address}</div>` : ""}
               </div>
-            `;
-          }).join("")}
+          `).join("")}
         </div>
 
         ${c.evening ? `<div class="card"><div class="section-h">Kveldsforslag</div><p style="margin:0;font-size:14px;line-height:1.6;">${c.evening}</p></div>` : ""}
@@ -835,11 +840,33 @@ async function renderCityTab(c, slug, tab) {
     const p = c.practical || {};
     const country = countryCode(c.country);
     const em = EMERGENCY[country];
+    const praktiskPois = (CITY_POIS[slug] || []).filter(x => x.type === "praktisk" || x.type === "lade");
+
+    function poiCard(p2) {
+      const link = gmapsLink(p2.lat, p2.lng, p2.name);
+      return `
+        <a href="${link}" target="_blank" class="practical-link">
+          <div style="font-size:26px;line-height:1;flex-shrink:0;">${p2.icon}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;font-size:14px;">${p2.name}</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Åpne i Google Maps ↗</div>
+          </div>
+        </a>
+      `;
+    }
+
     $body.innerHTML = `
+      ${praktiskPois.length ? `
+        <div class="section-h">Klikkbare adresser</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;">
+          ${praktiskPois.map(poiCard).join("")}
+        </div>
+      ` : ""}
+
       <div class="card-grid">
-        ${p.charging ? `<div class="card"><div class="section-h">⚡ Lading</div><p style="margin:0;font-size:14px;">${p.charging}</p></div>` : ""}
         ${p.market ? `<div class="card"><div class="section-h">🛍️ Marked</div><p style="margin:0;font-size:14px;">${p.market}</p></div>` : ""}
         ${p.supermarket ? `<div class="card"><div class="section-h">🛒 Supermarked</div><p style="margin:0;font-size:14px;">${p.supermarket}</p></div>` : ""}
+        ${p.charging ? `<div class="card"><div class="section-h">⚡ Lading</div><p style="margin:0;font-size:14px;">${p.charging}</p></div>` : ""}
         ${p.pharmacy ? `<div class="card"><div class="section-h">💊 Apotek</div><p style="margin:0;font-size:14px;">${p.pharmacy}</p></div>` : ""}
         ${p.parking ? `<div class="card"><div class="section-h">🅿️ Parkering</div><p style="margin:0;font-size:14px;">${p.parking}</p></div>` : ""}
         ${p.ztl ? `<div class="card"><div class="section-h">🚫 ZTL</div><p style="margin:0;font-size:14px;">${p.ztl}</p></div>` : ""}

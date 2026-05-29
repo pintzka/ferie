@@ -282,6 +282,31 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* City detail */
+.city-header-compact {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0 0 12px 0;
+}
+
+.practical-link {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s, transform 0.12s;
+}
+.practical-link:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
 .city-header {
   display: flex;
   gap: 16px;

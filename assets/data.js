@@ -39,7 +39,9 @@ const LODGINGS = {
   "grado-airbnb": { name: "Airbnb Grado", address: "Riva Brioni 27, 34073 Grado GO, Italia", lat: 45.6826, lng: 13.3788, gmaps: "https://maps.google.com/?q=Riva+Brioni+27+Grado", url: "https://www.airbnb.no/rooms/847787569977003234" },
   "hotel-central-hof": { name: "Hotel Central Hof", address: "Kulmbacher Straße 2, 95030 Hof an der Saale, Tyskland", lat: 50.3206, lng: 11.9043, gmaps: "https://maps.google.com/?q=Hotel+Central+Hof+Kulmbacher+2", url: "https://hotel-central-hof.de/" },
   "hamburg-tbd": { name: "Hamburg — hotell ikke booket", address: "HafenCity / Speicherstadt anbefalt", lat: 53.5413, lng: 9.9999, gmaps: null, url: null },
-  "hjemme": { name: "Hjemme", address: "Leiv Eirikssons vei 3a, 7040 Trondheim", lat: 63.4308, lng: 10.4574, gmaps: "https://maps.google.com/?q=Leiv+Eirikssons+vei+3a+Trondheim", url: null }
+  "hjemme": { name: "Hjemme", address: "Leiv Eirikssons vei 3a, 7040 Trondheim", lat: 63.4308, lng: 10.4574, gmaps: "https://maps.google.com/?q=Leiv+Eirikssons+vei+3a+Trondheim", url: null },
+  "summit-seefeld": { name: "Summit Seefeld", address: "Reitherjochstraße 63, 6100 Seefeld in Tirol, Østerrike", lat: 47.3288, lng: 11.2044, gmaps: "https://maps.google.com/?q=Summit+Hotel+Seefeld", url: "https://www.summit-seefeld.com/" },
+  "ideal-park": { name: "Hotel Ideal Park", address: "Kennedystraße 138, 39055 Laives (Leifers) BZ, Italia", lat: 46.4290, lng: 11.3400, gmaps: "https://maps.google.com/?q=Hotel+Ideal+Park+Laives", url: "https://www.hotelidealpark.it/" }
 };
 
 // Hver dag i ferien. city-slug peker inn i CITIES. lodging_id peker inn i LODGINGS.
@@ -64,33 +66,34 @@ const DAYS = [
     note: "Alpedag: Rosshütte funikulær, lunsj på fjellet, evt Mittenwald.", charging_leg: null },
   { date: "2026-06-27", weekday: "lørdag", from: "Seefeld", to: "Bardolino", city: "bardolino",
     km: 270, drivetime_h: 3.5, lodging_id: "bardolino-airbnb",
-    note: "Brenner sør, ladestopp Bolzano. Ankomst Bardolino ettermiddag.", charging_leg: "seefeld-bardolino" },
-  { date: "2026-06-28", weekday: "søndag", from: "Bardolino", to: "Bardolino", city: "bardolino",
-    km: 0, drivetime_h: 0, lodging_id: "bardolino-airbnb", note: "Innstillingsdag." },
-  { date: "2026-06-29", weekday: "mandag", from: "Bardolino", to: "Bardolino", city: "bardolino",
-    km: 0, drivetime_h: 0, lodging_id: "bardolino-airbnb", note: "" },
-  { date: "2026-06-30", weekday: "tirsdag", from: "Bardolino", to: "Bardolino", city: "bardolino",
-    km: 0, drivetime_h: 0, lodging_id: "bardolino-airbnb", note: "" },
-  { date: "2026-07-01", weekday: "onsdag", from: "Bardolino", to: "Bardolino", city: "bardolino",
-    km: 0, drivetime_h: 0, lodging_id: "bardolino-airbnb", note: "" },
-  { date: "2026-07-02", weekday: "torsdag", from: "Bardolino", to: "Bardolino", city: "bardolino",
-    km: 0, drivetime_h: 0, lodging_id: "bardolino-airbnb", note: "Marked i Bardolino 08–13." },
-  { date: "2026-07-03", weekday: "fredag", from: "Bardolino", to: "Bardolino", city: "bardolino",
-    km: 0, drivetime_h: 0, lodging_id: "bardolino-airbnb", note: "" },
-  { date: "2026-07-04", weekday: "lørdag", from: "Bardolino", to: "Bardolino", city: "bardolino",
-    km: 0, drivetime_h: 0, lodging_id: "bardolino-airbnb", note: "Siste dag Bardolino." },
-  { date: "2026-07-05", weekday: "søndag", from: "Bardolino", to: "Grado", city: "grado",
-    km: 270, drivetime_h: 3, lodging_id: "grado-airbnb",
-    note: "Direkte østover. Lad helt opp i Villesse på vei inn.", charging_leg: "bardolino-grado" },
-  { date: "2026-07-06", weekday: "mandag", from: "Grado", to: "Grado", city: "grado",
-    km: 0, drivetime_h: 0, lodging_id: "grado-airbnb", note: "" },
-  { date: "2026-07-07", weekday: "tirsdag", from: "Grado", to: "Grado", city: "grado",
-    km: 0, drivetime_h: 0, lodging_id: "grado-airbnb", note: "Sykkeltur til Aquileia anbefales." },
-  { date: "2026-07-08", weekday: "onsdag", from: "Grado", to: "Grado", city: "grado",
-    km: 0, drivetime_h: 0, lodging_id: "grado-airbnb", note: "Siste dag — evt Trieste." },
-  { date: "2026-07-09", weekday: "torsdag", from: "Grado", to: "Hof", city: "hof",
-    km: 780, drivetime_h: 9, lodging_id: "hotel-central-hof",
-    note: "KJØREDAG MAXIMUS. Fire ladestopp. Ankomst Hof ca kl 19–20. Vurder å splitte med natt i Salzburg.", charging_leg: "grado-hof" },
+    note: "Ankomst i 38 °C hetebølge. AC utilstrekkelig. Kansellert etter én natt.", charging_leg: "seefeld-bardolino" },
+  { date: "2026-06-28", weekday: "søndag", from: "Bardolino", to: "Seefeld (retur)", city: "seefeld",
+    km: 270, drivetime_h: 3.5, lodging_id: "summit-seefeld",
+    note: "Snu og kjør tilbake nord. Innsjekket Summit Seefeld — 3 netter." },
+  { date: "2026-06-29", weekday: "mandag", from: "Seefeld", to: "Seefeld", city: "seefeld",
+    km: 0, drivetime_h: 0, lodging_id: "summit-seefeld", note: "Summit Seefeld basseng + spa. Alpin luft." },
+  { date: "2026-06-30", weekday: "tirsdag", from: "Seefeld", to: "Seefeld", city: "seefeld",
+    km: 0, drivetime_h: 0, lodging_id: "summit-seefeld", note: "" },
+  { date: "2026-07-01", weekday: "onsdag", from: "Seefeld", to: "Laives (Sør-Tirol)", city: "laives",
+    km: 250, drivetime_h: 3.2, lodging_id: "ideal-park",
+    note: "Sør via Brennerpasset. Stopp Kalterer See på vei. Ankomst Hotel Ideal Park." },
+  { date: "2026-07-02", weekday: "torsdag", from: "Laives", to: "Laives", city: "laives",
+    km: 0, drivetime_h: 0, lodging_id: "ideal-park", note: "Basseng, spa, hotellrutine." },
+  { date: "2026-07-03", weekday: "fredag", from: "Laives", to: "Laives", city: "laives",
+    km: 0, drivetime_h: 0, lodging_id: "ideal-park", note: "" },
+  { date: "2026-07-04", weekday: "lørdag", from: "Laives", to: "Laives", city: "laives",
+    km: 0, drivetime_h: 0, lodging_id: "ideal-park", note: "" },
+  { date: "2026-07-05", weekday: "søndag", from: "Laives", to: "Laives", city: "laives",
+    km: 0, drivetime_h: 0, lodging_id: "ideal-park", note: "" },
+  { date: "2026-07-06", weekday: "mandag", from: "Laives", to: "Laives", city: "laives",
+    km: 0, drivetime_h: 0, lodging_id: "ideal-park", note: "" },
+  { date: "2026-07-07", weekday: "tirsdag", from: "Laives", to: "Laives", city: "laives",
+    km: 0, drivetime_h: 0, lodging_id: "ideal-park", note: "" },
+  { date: "2026-07-08", weekday: "onsdag", from: "Laives", to: "Laives", city: "laives",
+    km: 0, drivetime_h: 0, lodging_id: "ideal-park", note: "Siste dag Laives." },
+  { date: "2026-07-09", weekday: "torsdag", from: "Laives", to: "Hof", city: "hof",
+    km: 640, drivetime_h: 7.5, lodging_id: "hotel-central-hof",
+    note: "Nordover via Brennerpasset. Ladestopp Innsbruck + München.", charging_leg: "laives-hof" },
   { date: "2026-07-10", weekday: "fredag", from: "Hof", to: "Hamburg", city: "hamburg",
     km: 500, drivetime_h: 5, lodging_id: "hamburg-tbd",
     note: "Ankomst Hamburg ettermiddag. Miniatur Wunderland åpent til 19:00.", charging_leg: "hof-hamburg" },
@@ -456,6 +459,74 @@ const CITIES = {
     practical: { charging: "IONITY/Aral Pulse i Hof-området, eller hotellet kan ha destination charging — sjekk." }
   },
 
+  laives: {
+    name: "Laives (Leifers)", country: "Italia", flag: "🇮🇹", lat: 46.4290, lng: 11.3400,
+    color: "#c2410c",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Bozen_Blick_vom_Virgl.jpg/330px-Bozen_Blick_vom_Virgl.jpg",
+    summary: "8 netter i Sør-Tirol etter Bardolino-avbrudd. Hotel Ideal Park med basseng og spa. Kjølig alpelufta 10 km sør for Bolzano, midt i Weinstraße-vinregionen. Kalterer See 20 min unna.",
+    nights: 8,
+    attractions: [
+      { name: "Rittner Seilbahn + Renon-platået", why: "Kabelbane fra Bolzano sentrum til 1 220 m på 12 min. Rittnerbahn (smalsporet 1907-tog) videre til Klobenstein. Erdpyramiden ved Longomoso — bisarre morene-pyramider. 5–8 °C kjøligere enn dalen.", distance: "12 min bil til dalstasjon", kids: "Ja — kabelbane vinner alltid" },
+      { name: "Ötzi-museet (Bolzano)", why: "5 500 år gammel ismann funnet 1991, med hele utstyret bevart. Klimaanlegg, 2–2,5 timer inne. En av Europas beste arkeologiske museer.", distance: "12 min bil", kids: "Ja — særlig 13/14-åring" },
+      { name: "Trauttmansdorff-hagen (Merano)", why: "12 tematiske hager på 12 ha, kaktus-drivhus, Sissi-museum. Åpen til 19:00 i juli — best etter siesta.", distance: "45 min bil", kids: "Ja" },
+      { name: "Alpe di Siusi via Ortisei", why: "Europas største alpehøyplatå (2 000 m). Kabelbane fra Ortisei. Snittstemperatur juli 15 °C. Panorama-vandringer 3–8 km.", distance: "1 t bil til Ortisei", kids: "Ja — perfekt hetefluktdag" },
+      { name: "Rittner Horn (2 260 m)", why: "Fra Klobenstein kabelbane videre til fjelltoppen. Flat 1,5 t rundtur til korset. Ren tirolsk sky-air.", distance: "12 min + kabelbane", kids: "Ja — imponerende utsikt" },
+      { name: "Kalterer See (Lago di Caldaro)", why: "Sør-Tirols varmeste alpine sjø (opp til 28 °C). Fire lidos: LIDO (bassenger, lekeområde, beachvolley), Gretl am See, Seegarten, Campi al Lago. Sandbunn.", distance: "20 min bil", kids: "Ja — perfekt for Elias" },
+      { name: "Piazza Walther + Via dei Portici (Bolzano)", why: "Gamle skiperbuer fra 1200-tallet. Aperitivo på Café Kaiserkron. Gelato hos Streiter.", distance: "12 min bil", kids: "Ja — kort utflukt" }
+    ],
+    restaurants: [
+      { name: "Kontrasto (hotellet)", address: "Kennedystraße 138, Laives", type: "Puglia + Alpin fusion", price: "€€", must_try: "Halvpensjons-menyen. Frokost bufeen er høyt rangert. Åpent 12:00–13:30 + 18:00–21:30", kids: "Ja", booking: "Kontakt resepsjonen" },
+      { name: "Wirtshaus Vögele", address: "Goethestraße 3, Bolzano (Piazza della Frutta)", type: "Klassisk tirolerkro siden 1277", price: "€€", must_try: "Speckplate, schlutzkrapfen, kalvekjøtt-suppe, hjemmelaget apfelstrudel", kids: "Ja", booking: "Anbefales" },
+      { name: "Franziskaner Stuben", address: "Franziskanergasse 1, Bolzano", type: "Historisk klosterkro, tradisjonell tirolsk", price: "€€", must_try: "Knödel-varianter, deer stew i juli", kids: "Ja", booking: "Anbefales" },
+      { name: "Restaurant Laurin (Parkhotel Laurin)", address: "Laurinstraße 4, Bolzano", type: "Michelin-anbefalt, moderne fine dining under gamle trær", price: "€€€", must_try: "Sesong-smaksmeny — voksenkveld", kids: "Best uten", booking: "1–2 uker før" },
+      { name: "Seeperle", address: "Klughammer 2, Kaltern am See", type: "Restaurant rett ved sjøen, tirolsk + middelhav", price: "€€", must_try: "Lunsj etter bading. Grillet lokalfisk", kids: "Ja", booking: "Anbefales sommer" },
+      { name: "Torgglkeller", address: "Rottenburgerplatz 1, Kaltern", type: "Historisk vinkeller, enkel plate", price: "€", must_try: "Cold cuts + lokal Kalterersee-vin", kids: "OK", booking: "Nei" },
+      { name: "Neuer Loewe", address: "Muster-Gasse 3, Bolzano", type: "Familievennlig pizza + tirolsk", price: "€", must_try: "Vedovn-pizza, klassisk gulasch", kids: "Ja", booking: "Anbefales fre/lør" }
+    ],
+    runningRoutes: [
+      { name: "Etsch-Radweg sørover", distance_km: 10, elevation_m: 20, surface: "asfalt, dedikert sykkelvei", note: "Fra Laives langs Adige-elva sør mot Auer. Flat, drikkefontener, kjølig 05:30–07:30. Perfekt for tempoøkter." },
+      { name: "Etsch-Radweg nord til Bolzano", distance_km: 16, elevation_m: 25, surface: "asfalt", note: "Nord langs elva forbi Bolzano-sentrum. Solmoll etter 08:00 — start senest 06:30 i juli." },
+      { name: "Leiferer Höhenweg", distance_km: 12, elevation_m: 500, surface: "grus + sti", note: "Opp gjennom vinmarker mot St. Peter. Kupert, kjølig i skogen. Bra fjelløkt for AS-inspiserte bein." },
+      { name: "Rittner Horn oppe", distance_km: 8, elevation_m: 200, surface: "fjellsti", note: "Kabelbane til 2 260 m, løp rundturer på ryggen. Kjølig tirolsk høyfjell — ren økt for hodet." }
+    ],
+    rainy: [
+      "Ötzi-museet (Bolzano) — klimaanlegg, 2 timer",
+      "Terme Merano — spa/varmt basseng, hele familien",
+      "Bolzano Duomo + Museion (moderne kunst-museum)"
+    ],
+    kids: [
+      "Kalterer See LIDO — barnebasseng, leke, sport",
+      "Rittner Seilbahn + smalsporet tog — opplevelse i seg selv",
+      "Alpine Coaster / Klausberg-baner — for tenåringer",
+      "Etsch-Radweg med leiesykler for hele familien",
+      "Bolzano Duomo klokkeklang på hele timer"
+    ],
+    day_trips: [
+      { name: "Kalterer See (Lago di Caldaro)", drive_min: 20, why: "Sør-Tirols varmeste alpine sjø. Fire lidos å velge mellom. Best mellom 10:00 og 15:00 hvis ikke for varmt.", plan: "LIDO for barn (bassenger + strand). Lunsj på Seeperle. Middag på Torgglkeller etterpå." },
+      { name: "Bolzano gamleby + Ötzi", drive_min: 15, why: "Ötzi-museet + Piazza Walther + Via dei Portici", plan: "Museum 10:00–12:30. Lunsj Wirtshaus Vögele. Gelato Streiter. Hjem til siesta." },
+      { name: "Renon/Ritten kabelbane", drive_min: 12, why: "Rittner Seilbahn + Rittnerbahn + Erdpyramiden", plan: "Halv dag. Lunsj på Gasthaus Zumblock ved Klobenstein." },
+      { name: "Merano + Trauttmansdorff-hagen", drive_min: 45, why: "45 min nord, botanisk hage åpen til 19:00, Sissi-museet", plan: "Start etter siesta 16:00. Hagen 17:00–19:00. Middag i Merano gamleby." },
+      { name: "Alpe di Siusi (Val Gardena)", drive_min: 60, why: "Europas største alpehøyplatå, 2 000 m, kjølig hele dagen", plan: "Hele dagen — kjør Ortisei 08:00, kabelbane opp, rundtur 3–8 km, lunsj Compatsch, retur ettermiddag" },
+      { name: "Weinstraße vintasting", drive_min: 25, why: "Kellerei Kaltern (kooperativ), Elena Walch, Cantina Terlano", plan: "Sen ettermiddag mens barna er ved bassenget. Book 1–2 dager før." },
+      { name: "Pragser Wildsee / Lago di Braies", drive_min: 90, why: "Fotogen turkis dolomitt-sjø", plan: "Full dag. Kjør tidlig — trafikkstopp inn 09:30–15:00. Alternativt sen ettermiddag inn 15:00." }
+    ],
+    practical: {
+      charging: "Tesla Supercharger Bolzano (Twenty Shopping Center) — 15 min bil fra hotellet. 12 ladere 250 kW.",
+      market: "Bolzano fruktmarkedet på Piazza delle Erbe (man–fre 07:00–19:00, lør 07:00–13:00) — best i Sør-Tirol. Salurn og Kaltern har lokale ukesmarkeder.",
+      supermarket: "MPreis Laives (Sør-Tirols tyskspråklige kjede) 400 m fra hotellet. Eurospar Bolzano ved Twenty for storhandel.",
+      pharmacy: "Farmacia Comunale Laives, Kennedystraße. Farmacia dell'Aquila Nera i Bolzano sentrum for sen åpningstid.",
+      parking: "Hotellet har gratis parkering — 60 plasser. Bolzano sentrum: Parkhaus Bozen Mitte (Museumstraße) 1,50 €/t.",
+      tips: "To språk: tysk og italiensk brukes om hverandre. Servitører veksler etter aksenten din. Bruk 'Grüß Gott' inn i tyske vertshus, 'Buongiorno' ved italienske."
+    },
+    booking_priority: [
+      "Restaurant Laurin (voksenkveld)",
+      "Wirtshaus Vögele (Bolzano)",
+      "Kellerei Kaltern eller Elena Walch vintasting",
+      "Alpe di Siusi kabelbane-tur (tidsslot om helgen)",
+      "Trauttmansdorff-hagen (kjøp online for å skippe kø)"
+    ]
+  },
+
   hamburg: {
     name: "Hamburg", country: "Tyskland", flag: "🇩🇪", lat: 53.5511, lng: 9.9937,
     color: "#525252",
@@ -544,22 +615,30 @@ const CHARGING = {
     ],
     notes: "Bratt nedoverkjøring Brenner (1 370 m) → Bolzano (260 m) gir kraftig regenerering — kun 12–15 kWh forbruk på de 80 km."
   },
-  "bardolino-grado": {
-    from: "Bardolino", to: "Grado", km: 270, drive_h: 3, charge_min: 0,
-    route: "SR450 → A4 øst forbi Verona, Vicenza, Padova, Mestre → A23 nord til Palmanova → SR352 → Grado.",
-    stops: [],
-    notes: "Direkte — ankomst Grado ca 35 %. Hvis lunsj: Tesla SC Venezia-Mestre midtveis."
-  },
-  "grado-hof": {
-    from: "Grado", to: "Hof", km: 780, drive_h: 9, charge_min: 79,
-    route: "SR352 → A4 vest → A23 nord → Tarvisio → Villach → A2 Tauernautobahn → A10 → A1 Salzburg → Linz → Passau → A3 → A93 → Hof.",
+  "bardolino-seefeld": {
+    from: "Bardolino", to: "Seefeld (retur)", km: 270, drive_h: 3.5, charge_min: 12,
+    route: "A22 nord over Brennerpasset → Innsbruck → Seefeld. Stopp ved Kalterer See underveis.",
     stops: [
-      { name: "Villach-Ost", type: "Tesla SC", kw: 250, stalls: 6, arrive_soc: 30, depart_soc: 70, minutes: 22, food: "OMV-stasjon eller Atrio shoppingsenter (2 km) for lunsj", backup: "Villach Maria-Gailer-Straße (8 ladere 150 kW)" },
-      { name: "Salzburg Nord", type: "Tesla SC", kw: 250, stalls: 10, arrive_soc: 25, depart_soc: 65, minutes: 22, food: "Europark Salzburg — storkjøkken, supermarked", backup: "Salzburg Anif (12 ladere 150 kW, 8 km sør)" },
-      { name: "Amstetten", type: "Tesla SC", kw: 250, stalls: 12, arrive_soc: 25, depart_soc: 70, minutes: 22, food: "McDonalds + Burger King + bensinstasjon", backup: "St. Pölten (60 km videre)" },
-      { name: "Aicha vorm Wald (eller Deggendorf)", type: "Tesla SC", kw: 250, stalls: 8, arrive_soc: 35, depart_soc: 60, minutes: 13, food: "Pissestopp", backup: "Deggendorf SC 25 km lenger" }
+      { name: "Bolzano Supercharger", type: "Tesla SC", kw: 250, stalls: 12, arrive_soc: 55, depart_soc: 75, minutes: 12, food: "Twenty Shopping Center — gelato, lunsj", backup: "Trento SC" }
     ],
-    notes: "KRITISK ETAPPE. 9 t kjøring + 1:19 lading = 10:19. Vurder å splitte i to dager med natt i Salzburg eller Linz."
+    notes: "Retur pga hetebølge. Kalterer See som naturlig lunsj-stopp."
+  },
+  "seefeld-laives": {
+    from: "Seefeld", to: "Laives", km: 250, drive_h: 3.2, charge_min: 12,
+    route: "B177 → A13 Brennerautobahn sør — Innsbruck — Brennerpass — Sterzing — Bolzano → Laives.",
+    stops: [
+      { name: "Bolzano Supercharger (Twenty)", type: "Tesla SC", kw: 250, stalls: 12, arrive_soc: 40, depart_soc: 75, minutes: 12, food: "Twenty Shopping Center. Ideelt lunsj-stopp før innsjekk.", backup: "Trento SC (80 km sør)" }
+    ],
+    notes: "Bratt nedoverkjøring Brenner gir god regen. Stopp ved Kalterer See mulig som første orientering til området."
+  },
+  "laives-hof": {
+    from: "Laives", to: "Hof", km: 640, drive_h: 7.5, charge_min: 50,
+    route: "A22 nord over Brennerpasset → Innsbruck → München → A9 nord til Bayreuth → Hof.",
+    stops: [
+      { name: "Innsbruck Süd Supercharger", type: "Tesla SC", kw: 250, stalls: 8, arrive_soc: 30, depart_soc: 70, minutes: 22, food: "DEZ-shoppingsenteret rett ved", backup: "Innsbruck Bernhard-Höfel-Straße (150 kW)" },
+      { name: "München OEZ", type: "Tesla SC", kw: 250, stalls: 12, lat: 48.1734, lng: 11.5423, arrive_soc: 25, depart_soc: 70, minutes: 25, food: "Olympia-Einkaufszentrum — mange restauranter, supermarked, toaletter", backup: "Ingolstadt SC eller Greding SC" }
+    ],
+    notes: "Roligere enn Grado-Hof var. Brennerpasset gir bra regen ned mot Innsbruck. Vurder overnatting Bayreuth (bk World-laderen) hvis dere blir sene."
   },
   "hof-hamburg": {
     from: "Hof", to: "Hamburg", km: 500, drive_h: 5, charge_min: 33,
@@ -587,9 +666,10 @@ const LEGS = [
   { id: "kiel-berlin", from: [54.323, 10.122], to: [52.5076, 13.3198], via: [[53.519, 11.060]], label: "Kiel → Berlin" },
   { id: "berlin-dresden", from: [52.5076, 13.3198], to: [51.0504, 13.7373], via: [], label: "Berlin → Dresden" },
   { id: "dresden-seefeld", from: [51.0504, 13.7373], to: [47.3263, 11.1850], via: [[49.948, 11.578], [48.146, 11.546]], label: "Dresden → Seefeld" },
-  { id: "seefeld-bardolino", from: [47.3263, 11.1850], to: [45.5530, 10.7223], via: [[46.498, 11.354]], label: "Seefeld → Bardolino" },
-  { id: "bardolino-grado", from: [45.5530, 10.7223], to: [45.6781, 13.3961], via: [[45.437, 11.541], [45.658, 12.243]], label: "Bardolino → Grado" },
-  { id: "grado-hof", from: [45.6781, 13.3961], to: [50.3119, 11.9097], via: [[46.621, 13.846], [47.808, 13.055], [48.121, 12.581]], label: "Grado → Hof" },
+  { id: "seefeld-bardolino", from: [47.3347, 11.1873], to: [45.5517, 10.7341], via: [[46.498, 11.354]], label: "Seefeld → Bardolino (avbrutt pga hetebølge)" },
+  { id: "bardolino-seefeld-retur", from: [45.5517, 10.7341], to: [47.3288, 11.2044], via: [[46.498, 11.354]], label: "Bardolino → Seefeld (retur)" },
+  { id: "seefeld-laives", from: [47.3288, 11.2044], to: [46.4290, 11.3400], via: [[46.498, 11.354]], label: "Seefeld → Laives" },
+  { id: "laives-hof", from: [46.4290, 11.3400], to: [50.3206, 11.9043], via: [[47.269, 11.394], [48.173, 11.542]], label: "Laives → Hof" },
   { id: "hof-hamburg", from: [50.3119, 11.9097], to: [53.5413, 9.9999], via: [[51.337, 12.379], [52.375, 9.732]], label: "Hof → Hamburg" },
   { id: "hamburg-kiel", from: [53.5413, 9.9999], to: [54.323, 10.122], via: [], label: "Hamburg → Kiel" },
   { id: "kiel-oslo-ferge", from: [54.323, 10.122], to: [59.911, 10.685], via: [], label: "Color Line ferge", ferry: true },
@@ -685,6 +765,28 @@ const CITY_POIS = {
     { type: "dagstur", name: "Lignano Aquasplash", lat: 45.6730, lng: 13.1300, icon: "💦" },
     { type: "lade", name: "Tesla Supercharger Villesse", lat: 45.8650, lng: 13.4760, icon: "⚡" }
   ],
+  laives: [
+    { type: "lodging", name: "Hotel Ideal Park — Kennedystraße 138", lat: 46.4290, lng: 11.3400, icon: "🏨", url: "https://www.hotelidealpark.it/" },
+    { type: "se", name: "Kalterer See LIDO", lat: 46.3830, lng: 11.2620, icon: "🏖️" },
+    { type: "se", name: "Ötzi-museet (Museo Archeologico)", lat: 46.4988, lng: 11.3521, icon: "🧊" },
+    { type: "se", name: "Rittner Seilbahn dalstasjon (Bolzano)", lat: 46.5010, lng: 11.3541, icon: "🚠" },
+    { type: "se", name: "Erdpyramiden Longomoso", lat: 46.5449, lng: 11.4664, icon: "⛰️" },
+    { type: "se", name: "Piazza Walther (Bolzano)", lat: 46.4983, lng: 11.3548, icon: "🏛️" },
+    { type: "se", name: "Trauttmansdorff-hagen Merano", lat: 46.6647, lng: 11.1798, icon: "🌸" },
+    { type: "se", name: "Ortisei / Val Gardena kabelbane", lat: 46.5745, lng: 11.6733, icon: "🚡" },
+    { type: "mat", name: "Kontrasto (hotellet)", lat: 46.4290, lng: 11.3400, icon: "🍽️" },
+    { type: "mat", name: "Wirtshaus Vögele (Bolzano)", lat: 46.4979, lng: 11.3540, icon: "🥨" },
+    { type: "mat", name: "Franziskaner Stuben (Bolzano)", lat: 46.4986, lng: 11.3534, icon: "⛪" },
+    { type: "mat", name: "Restaurant Laurin (Bolzano)", lat: 46.4977, lng: 11.3562, icon: "⭐" },
+    { type: "mat", name: "Seeperle (Kaltern)", lat: 46.3808, lng: 11.2649, icon: "🐟" },
+    { type: "mat", name: "Torgglkeller (Kaltern)", lat: 46.4145, lng: 11.2555, icon: "🍷" },
+    { type: "praktisk", name: "MPreis Laives (nærmeste supermarked)", lat: 46.4315, lng: 11.3389, icon: "🛒" },
+    { type: "praktisk", name: "Eurospar Bolzano Twenty", lat: 46.4915, lng: 11.3389, icon: "🛒" },
+    { type: "praktisk", name: "Fruktmarked Piazza delle Erbe (Bolzano)", lat: 46.4988, lng: 11.3538, icon: "🥬" },
+    { type: "praktisk", name: "Farmacia Comunale Laives", lat: 46.4287, lng: 11.3392, icon: "💊" },
+    { type: "lade", name: "Supercharger Bolzano (Twenty)", lat: 46.4919, lng: 11.3395, icon: "⚡" }
+  ],
+
   hof: [
     { type: "lodging", name: "Hotel Central Hof (Kulmbacher Str. 2)", lat: 50.3206, lng: 11.9043, icon: "🏨", url: "https://hotel-central-hof.de/" },
     { type: "se", name: "Bürgerpark Theresienstein", lat: 50.3248, lng: 11.9118, icon: "🌳" },
@@ -715,16 +817,12 @@ const CITY_POIS = {
 const BOOKINGS = [
   { id: "dresden-adresse", what: "Be familien i Dresden om eksakt adresse", city: "dresden", deadline: "2026-05-01", url: null, note: "Trengs for Tesla-navigasjon og for å vise riktig kart." },
   { id: "reichstag", what: "Reichstag-kuppel Berlin", city: "berlin", deadline: "2026-05-23", url: "https://www.bundestag.de/", note: "Bestilles 4–6 uker før. NB stengt 15.–19. juni 2026 — sjekk 23.06." },
-  { id: "monte-baldo", what: "Monte Baldo funivia (Malcesine)", city: "bardolino", deadline: "2026-06-15", url: "https://www.funiviedelbaldo.it/en", note: "27 € voksen t/r. Online tidsslot — selges raskt sommer." },
-  { id: "veranda-color", what: "La Veranda del Color (fine dining)", city: "bardolino", deadline: "2026-06-08", url: "https://www.laverandadelcolor.it/it", note: "2–4 uker før. Smaksmeny 90–130 €/p." },
-  { id: "esperidi", what: "Il Giardino delle Esperidi", city: "bardolino", deadline: "2026-06-15", url: "https://guide.michelin.com/us/en/veneto/bardolino/restaurant/il-giardino-delle-esperidi", note: "Sentrumsrestaurant, må bookes." },
-  { id: "guerrieri", what: "Guerrieri Rizzardi vinomvisning", city: "bardolino", deadline: "2026-06-22", url: "https://www.guerrieri-rizzardi.it/it/nuove-esperienze-2025-guerrieri-rizzardi/", note: "25–55 €/p. Velg tidsslot." },
-  { id: "pizzeria-bardolino", what: "Pizzeria Bardolino", city: "bardolino", deadline: null, url: null, note: "Møt opp 17:00 eller ring 1–2 dager før — ellers stengt." },
-  { id: "al-porto", what: "Al Porto Bardolino (fre/lør)", city: "bardolino", deadline: null, url: null, note: "Book 3–5 dager før hvis fredag/lørdag." },
-  { id: "ca-bottona", what: "Trattoria Cà Bottona (helger)", city: "bardolino", deadline: null, url: null, note: "1 uke før i helger." },
-  { id: "tavernetta-androna", what: "Tavernetta all'Androna (Grado)", city: "grado", deadline: "2026-06-25", url: null, note: "Michelin-anbefalt. Bestill telefonisk +39 0431 80950." },
-  { id: "de-toni", what: "Trattoria de Toni (Grado)", city: "grado", deadline: "2026-06-25", url: null, note: "Boreto-stedet. +39 0431 80104." },
-  { id: "casoni-grado", what: "Lagune-/casoni-tur Grado", city: "grado", deadline: null, url: null, note: "3–4 t med polenta-måltid. Book via turistkontoret eller direkte med båteier." },
+  { id: "laurin", what: "Restaurant Laurin (Bolzano, voksenkveld)", city: "laives", deadline: null, url: "https://www.laurin.it/", note: "Michelin-anbefalt. Book 1–2 uker før for utetjeneste under gamle trær." },
+  { id: "vogele", what: "Wirtshaus Vögele (Bolzano)", city: "laives", deadline: null, url: null, note: "Klassisk tirolerkro siden 1277. Anbefales å ringe 2–3 dager før." },
+  { id: "seeperle-kaltern", what: "Seeperle (Kaltern am See)", city: "laives", deadline: null, url: null, note: "Ring dagen før for utebord ved sjøen." },
+  { id: "vintasting-kaltern", what: "Vintasting Kellerei Kaltern eller Elena Walch", city: "laives", deadline: null, url: null, note: "Ring 1–2 dager før. Sen ettermiddag." },
+  { id: "trauttmansdorff", what: "Trauttmansdorff-hagen Merano — online-billett", city: "laives", deadline: null, url: "https://www.trauttmansdorff.it/en/", note: "Kjøp online for å skippe kø." },
+  { id: "alpe-siusi", what: "Alpe di Siusi / Val Gardena kabelbane", city: "laives", deadline: null, url: null, note: "Sjekk tidsslot om helgen." },
   { id: "hamburg-hotell", what: "Hamburg hotell (PIERDREI, AMERON eller Adina)", city: "hamburg", deadline: "2026-05-01", url: null, note: "Velg ett av tre forslag, eller fritt valg. 1 natt 10.–11. juli." },
   { id: "miniatur", what: "Miniatur Wunderland tidsslot", city: "hamburg", deadline: "2026-07-03", url: "https://www.miniatur-wunderland.com/", note: "Bestill tidsslot — ofte utsolgt i sommer." }
 ];
